@@ -1,0 +1,50 @@
+.view-form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    min-width: 200px;
+    height: 100%;
+}
+
+
+.edit-form-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.info-group {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    display: block;
+    color: #555;
+    background-color: whitesmoke;
+}
+ul.roles {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+ul.roles li {
+    background: #e0f0ff;
+    margin-bottom: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #007BFF;
+}

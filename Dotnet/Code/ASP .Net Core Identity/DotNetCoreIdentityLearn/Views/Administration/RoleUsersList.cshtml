@@ -1,0 +1,138 @@
+@model IEnumerable<UserViewModel>
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/view-column-form.css"/>
+    <style>
+
+        .title {
+            text-align: center;
+            margin-bottom: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* ==== User cards ==== */
+        .user-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .user-card {
+            font-family: Arial, sans-serif;
+            min-width: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: fit-content;
+            max-height: 40%;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e6e6e6;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .user-info {
+            line-height: 1.25;
+        }
+
+        .user-name {
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.1rem;
+        }
+
+        .user-meta {
+            display: block;
+            font-size: 0.85rem;
+            color: #6b7280; /* subtle grey */
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #c0392b; /* trash red */
+            line-height: 1;
+            padding: 0 0.25rem;
+        }
+
+        .delete-btn:hover {
+            color: #a83225;
+        }
+
+        /* ==== Action buttons ==== */
+        .action-bar {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+    </style>
+}
+
+
+<!-- Root wrapper -->
+<div class="view-form-container">
+
+    @if (Model.Any())
+    {
+        <h2 class="title">Assigned Users</h2>
+
+        <!-- User cards list -->
+        <div class="user-list">
+            @foreach (var user in Model)
+            {
+                <div class="user-card" data-user-id="@user.Id">
+                    <div class="user-info">
+                        <span class="user-name">@user.Username</span>
+                        <span class="user-meta">@user.Id</span>
+                        <span class="user-meta">@user.Email</span>
+                    </div>
+
+                    <!-- Remove (trash) icon -->
+                    <button type="button" class="delete-btn" title="Remove user" aria-label="Remove @user.Username">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            }
+        </div>
+
+        <!-- Action buttons -->
+        <div class="action-bar">
+            <button type="submit" class="btn btn-primary">Update and Save</button>
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick='window.location.href = "@Url.Action("RolesList", "Administration")"'>Close
+            </button>
+        </div>
+    }
+    else
+    {
+        <h2 class="title">Assigned Users</h2>
+        <div class="card">
+            <h3>No Users Assigned Yet</h3>
+        </div>
+        <div class="action-bar">
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick='window.location.href = "@Url.Action("RolesList", "Administration")"'>Close
+            </button>
+        </div>
+    }
+</div>
+
+

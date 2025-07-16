@@ -1,0 +1,76 @@
+@model CreateRoleViewModel
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/edit-column-form.css"/>
+}
+
+<section id="AddRoleFormContainer" class="fullHeight">
+    <div class="edit-form-container">
+        <form id="AddRoleForm" class="edit-form" method="post" action="/Administration/CreateRole">
+            <h2>Add Role</h2>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="form-label"></label>
+                <input asp-for="RoleName" class="form-control" placeholder="Enter role name"/>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea rows="4" asp-for="Description" class="form-control are"
+                          placeholder="Enter role description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    Save
+                </button>
+                <button type="button" class="btn btn-secondary"
+                        onclick='window.location.href = "@Url.Action("RolesList", "Administration")"'>Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            // Handle the form submission with AJAX
+            $('#AddRoleForm').submit(function (event) {
+
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = $(this).serialize(); // Serialize the form data
+
+                $.ajax({
+                    url: $(this).attr('action'), // URL to submit the form
+                    type: 'POST', // Method
+                    data: formData, // Form data
+                    success: function (response) {
+                        // If the form was successfully submitted
+                        if (response.success === true) {
+                            // Do something with the response (e.g., show a success message)
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            // If there are validation errors, reinject the form with errors
+                            var $form = $(response);  // This will parse the HTML
+                            $('#AddRoleFormContainer').replaceWith($form); // Inject the updated form with errors
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+}

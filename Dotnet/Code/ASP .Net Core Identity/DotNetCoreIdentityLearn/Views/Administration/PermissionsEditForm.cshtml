@@ -1,0 +1,45 @@
+@model PermissionViewModel
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/edit-column-form.css"/>
+}
+
+<div class="edit-form-container">
+    <h2 class="title">@Model.TeamName Permissions</h2>
+
+    <form class="edit-form" method="post" action="/Administration/UpdatePermissions">
+        <div class="toggle-section">
+            <label class="form-slider-toggle">
+                <input type="checkbox" asp-for="CanRead" />
+                <span class="form-slider"></span>
+                <span class="toggle-text">Read</span>
+            </label>
+            <label class="form-slider-toggle">
+                <input type="checkbox" asp-for="CanWrite" />
+                <span class="form-slider"></span>
+                <span class="toggle-text">Write</span>
+            </label>
+            <label class="form-slider-toggle">
+                <input type="checkbox" asp-for="CanDelete" />
+                <span class="form-slider"></span>
+                <span class="toggle-text">Delete</span>
+            </label>
+            <label class="form-slider-toggle">
+                <input type="checkbox" asp-for="CanUpdate" />
+                <span class="form-slider"></span>
+                <span class="toggle-text">Update</span>
+            </label>
+        </div>
+
+        <div class="action-bar">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" onclick='window.location.href = "@Url.Action("TeamsList", "Administration")"'>Cancel</button>
+        </div>
+    </form>
+</div>
+

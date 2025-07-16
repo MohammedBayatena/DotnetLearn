@@ -1,0 +1,115 @@
+@model VerticallyEditableCardsView<DotNetCoreIdentityLearn.DataBase.Entities.ApplicationRole>
+
+@{
+    ViewBag.Title = "Roles Dashboard";
+    Layout = "_DashboardLayout";
+}
+
+<style>
+    .big-plus-button {
+        font-size: 4rem;
+        width: 80px;
+        height: 80px;
+        padding: 0;
+        line-height: 1;
+    }
+</style>
+
+
+
+<div class="header">
+    <div>
+        <h1>Administration Roles Dashboard</h1>
+    </div>
+</div>
+<div class="two-column-row">
+    <div class="cards column1 fullHeight">
+        <div class="card text-center shadow-sm">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                <button type="button"
+                        class="btn btn-outline-success display-1 p-0 mb-2 big-plus-button"
+                        style="width: 80px; height: 80px; line-height: 0;"
+                        onclick="openRoleAddColumn()">
+                    +
+                </button>
+                <h6 class="card-subtitle text-muted mt-2">Add New Role</h6>
+            </div>
+        </div>
+        @foreach (var role in Model.Items)
+        {
+            <div class="card">
+                <!-- Action icons container -->
+                <div class="card-actions">
+                    <button class="icon-button edit" onclick="openRoleEditColumn('@role.Id')" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button disabled='@role.IsSystemRole ? disabled : ""' class="icon-button delete"
+                            title="Delete Role">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <h2>@role.Name</h2>
+                <!-- Card content -->
+                <p class="title">@role.Id</p>
+                <p class="bio">@role.Description</p>
+                <button class="btn btn-dark"
+                        onclick="openUsersEditColumn('@role.Id')">View Assigned Users
+                </button>
+            </div>
+        }
+    </div>
+    <div class="column2" hidden>
+        <div id="partial-container" class="fullHeight"></div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        let openRoleEditColumn = function (roleId) {
+            $('#partial-container').load(`/Administration/LoadPartialEditRole?roleId=${roleId}`, function (response, status, _) {
+                if (status === "success") {
+                } else if (status === "error") {
+                    $('#partial-container').html('<p style="color:red;">Failed to load content.</p>');
+                }
+                resize();
+            });
+        }
+
+
+        let openRoleAddColumn = function () {
+            $('#partial-container').load(`/Administration/LoadPartialCreateRole`, function (response, status, _) {
+                if (status === "success") {
+                } else if (status === "error") {
+                    $('#partial-container').html('<p style="color:red;">Failed to load content.</p>');
+                }
+                resize();
+            });
+        }
+
+
+        let openUsersEditColumn = function (roleId) {
+            $('#partial-container').load(`/Administration/LoadPartialRoleUsersList?roleId=${roleId}`, function (response, status, _) {
+                if (status === "success") {
+                } else if (status === "error") {
+                    $('#partial-container').html('<p style="color:red;">Failed to load content.</p>');
+                }
+                resize();
+            });
+        }
+
+
+        let resize = function () {
+            const grid = document.querySelector('.two-column-row');
+            const col2 = grid.querySelector('.column2');
+            if (col2 && col2.textContent.trim() !== "") {
+                grid.style.gridTemplateColumns = "2fr 1fr";
+                col2.hidden = false;
+            } else {
+                grid.style.gridTemplateColumns = "1fr";
+            }
+        }
+    </script>
+}

@@ -1,0 +1,66 @@
+@using DotNetCoreIdentityLearn.DataBase.Entities
+@using DotNetCoreIdentityLearn.Helpers.Attributes
+@using DotNetCoreIdentityLearn.Helpers.Constants
+@inject SignInManager<ApplicationUser> SignInManager
+
+@* Partial View: NavigationBar *@
+<nav class="navbar navbar-expand-lg miku-navbar">
+    <div class="container-fluid">
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand miku-brand">🌸 Miku ASP .NET Identity Demo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mikuNavbar"
+                aria-controls="mikuNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mikuNavbar">
+            <ul class="nav nav-pills nav-fill gap-2 p-1 small rounded-5 shadow-sm" id="pillNav2" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="rounded-5 nav-link @((string?)ViewData["Tab"] is "Index" ? "active" : "")"
+                       asp-controller="Home"
+                       asp-action="Index"
+                       id="home-tab2">Home</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="rounded-5 nav-link @((string?)ViewData["Tab"] is "Profile" ? "active" : "")"
+                       asp-controller="Home"
+                       asp-action="Profile" id="profile-tab2">Profile</a>
+                </li>
+                <li class="nav-item" role="presentation">
+
+                    @*If the user is signed-in display Logout link*@
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <button class="rounded-5 nav-link" type="submit" style="width:auto" id="signout-tab2">Sign
+                                Out
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="rounded-5 nav-link @((string?)ViewData["Tab"] is "Login" ? "active" : "")"
+                           asp-controller="Account" asp-action="Login"
+                           id="signin-tab2">SignIn</a>
+                    }
+
+                </li>
+                <li class="nav-item" role="presentation">
+
+                    @*If the user is an Admin Display the Dashboard link*@
+                    @if (User.IsInRole(ApplicationRolesConstants.Administrator.GetName()))
+                    {
+                        <a class="rounded-5 nav-link"
+                           asp-controller="Administration" asp-action="Dashboard"
+                           id="signin-tab2">Dashboard</a>
+                    }
+                </li>
+            </ul>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="d-flex bg-white rounded-pill px-4 py-2 shadow-sm ms-auto">
+                    <p class="m-auto text-black fw-bold">Welcome, @User.Identity?.Name</p>
+                </div>
+            }
+        </div>
+    </div>
+</nav>

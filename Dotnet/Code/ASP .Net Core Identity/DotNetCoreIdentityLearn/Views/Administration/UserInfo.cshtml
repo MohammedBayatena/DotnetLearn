@@ -1,0 +1,45 @@
+@model UserViewModel
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/view-column-form.css"/>
+}
+
+<div class="view-form-container">
+    
+
+    <h2>@Model.Username</h2>
+
+    <div class="info-group">
+        <span class="label">Email</span>
+        <span>@(Model.Email)</span>
+    </div>
+
+    <div class="info-group">
+        <span class="label">Birthday</span>
+        <span>@(Model.Birthday)</span>
+    </div>
+
+    <div class="info-group">
+        <span class="label">Roles</span>
+        <ul class="roles">
+            @foreach (var role in Model.Roles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    </div>
+
+
+    <div class="form-actions">
+        <button type="button"
+                class="btn btn-secondary"
+                onclick='window.location.href = "@Url.Action("UsersList", "Administration")"'>Close
+        </button>
+    </div>
+
+</div>

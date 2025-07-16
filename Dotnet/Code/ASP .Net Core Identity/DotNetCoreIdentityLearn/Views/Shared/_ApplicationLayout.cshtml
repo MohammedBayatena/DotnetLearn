@@ -1,0 +1,22 @@
+@{
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/miku-navbar.css"/>
+    @await RenderSectionAsync("Styles", required: false)
+}
+
+<div>
+    @await Html.PartialAsync("NavigationBar")
+    @RenderBody()
+</div>
+
+
+@section Scripts {
+    @* Adds Client Side Validations *@
+    <script src="~/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+}

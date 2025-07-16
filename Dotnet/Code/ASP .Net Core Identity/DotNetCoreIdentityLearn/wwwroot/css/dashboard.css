@@ -1,0 +1,227 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+body {
+    display: flex;
+    background: #f8f9fa;
+    color: #1e1e1e;
+}
+
+.sidebar {
+    width: 240px;
+    transition: width .1s;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 24px;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100vh;
+    min-width: 200px;
+}
+
+.sidebar .toggle-btn {
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+/* Collapsed state */
+#toggle-sidebar:checked ~ .sidebar {
+    width: 20px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    min-width: 20px;
+}
+
+#toggle-sidebar:checked ~ .sidebar:hover {
+    box-shadow: 4px 0 8px rgba(55, 54, 54, 0.30);
+}
+
+#toggle-sidebar:checked ~ .sidebar .toggle-btn {
+    display: inline-block;
+    transform: rotate(180deg); /* rotates it upside-down */
+    transition: transform 0.3s ease; /* optional for smoothness */
+    margin-top: 15px;
+}
+
+#toggle-sidebar:checked ~ .sidebar nav a {
+    display: none;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 10px;
+    margin: 4px 0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.sidebar nav a:hover {
+    background: #f0f0f0;
+}
+
+.main {
+    flex: 1;
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 equal columns */
+    grid-template-rows: repeat(4, 300px);  /* 3 rows, each 300px tall */
+    gap: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e6e6e6;
+    padding: 2rem;
+}
+
+.card {
+    font-family: Arial, sans-serif;
+    min-width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: fit-content;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e6e6e6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.card p.title {
+    font-size: 14px;
+    color: #777;
+    margin: 4px 0 12px;
+}
+
+.card p.bio {
+    font-size: 14px;
+    color: #555;
+}
+
+.card button {
+    margin-top: 10px;
+}
+
+.card-actions button {
+    margin-top: 0;
+}
+
+.progress-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(rgba(27, 141, 147, 0.79) 0% 41%, #ddd 41% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.team-list li {
+    margin-bottom: 8px;
+}
+
+.two-column-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.column1{
+    overflow-y: scroll;
+}
+
+.column1, .column2 {
+    text-align: center;
+}
+
+.fullHeight {
+    height: 100vh;
+}
+
+.card-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.3rem;
+    color: #444;
+}
+
+.icon-button.edit i {
+    color: #007bff; /* Bootstrap primary blue */
+}
+
+.icon-button.delete i {
+    color: #dc3545; /* Bootstrap danger red */
+}
+
+.icon-button:hover {
+    opacity: 0.8;
+}
+

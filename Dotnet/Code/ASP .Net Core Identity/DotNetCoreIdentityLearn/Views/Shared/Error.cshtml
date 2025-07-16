@@ -1,0 +1,14 @@
+@model ErrorViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "_ApplicationLayout";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="text-center">
+        <h1 class="@Model.TextStyle">@Model.Code - @Model.Name</h1>
+        <p class="text-muted">@Model.ErrorMessage</p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-dark mt-3">Go Back Home</a>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+@using DotNetCoreIdentityLearn.Helpers.Attributes
+@using DotNetCoreIdentityLearn.Helpers.Constants
+@model IEnumerable<TeamViewModel>
+
+@{
+    ViewBag.Title = "Teams & Permissions Dashboard";
+    Layout = "_DashboardLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/permissions-dashboard.css"/>
+}
+
+
+<div class="header">
+    <div>
+        <h1>Administration Teams & Permissions Dashboard</h1>
+    </div>
+</div>
+
+
+<div class="two-column-row">
+    <div class="teams-wrapper column1 fullHeight">
+        <ul class="team-list">
+            @foreach (var team in Model)
+            {
+                <li class="team-item">
+                    <details open>
+                        <summary class="team-header">
+                            @team.Name
+                            <!-- Custom 4-way toggle -->
+                            <div class="toggle-wrapper" data-id="@team.Permissions.TeamId">
+                                <input type="radio" name="access_@team.Permissions.TeamId" id="read_@team.Permissions.TeamId"
+                                       value=@ApplicationPermissionAccessConstants.Read.GetName()
+                                       checked="@(team.Permissions.Level == ApplicationPermissionAccessConstants.Read.GetName())"/>
+                                <input type="radio" name="access_@team.Permissions.TeamId" id="limited_@team.Permissions.TeamId"
+                                       value="@ApplicationPermissionAccessConstants.Limited.GetName()
+                                       checked="
+                                       @(team.Permissions.Level == ApplicationPermissionAccessConstants.Limited.GetName())/>
+                                <input type="radio" name="access_@team.Permissions.TeamId" id="full_@team.Permissions.TeamId"
+                                       value="@ApplicationPermissionAccessConstants.Full.GetName()
+                                       checked="
+                                       @(team.Permissions.Level == ApplicationPermissionAccessConstants.Full.GetName())/>
+                                <input type="radio" name="access_@team.Permissions.TeamId" id="custom_@team.Permissions.TeamId"
+                                       value=@ApplicationPermissionAccessConstants.Custom.GetName()
+                                       checked="@(team.Permissions.Level == ApplicationPermissionAccessConstants.Custom.GetName())"/>
+
+                                <div class="switch">
+                                    <label for="read_@team.Permissions.TeamId"
+                                           onclick="openPermissionsColumnAndMoveSlider('@team.Permissions.TeamId', 0)">Read</label>
+                                    <label for="limited_@team.Permissions.TeamId"
+                                           onclick="openPermissionsColumnAndMoveSlider('@team.Permissions.TeamId', 1)">Limited</label>
+                                    <label for="full_@team.Permissions.TeamId"
+                                           onclick="openPermissionsColumnAndMoveSlider('@team.Permissions.TeamId', 2)">Full</label>
+                                    <label for="custom_@team.Permissions.TeamId"
+                                           onclick="openPermissionsColumnAndMoveSlider('@team.Permissions.TeamId', 3)">Custom</label>
+                                    <div class="slider-outline" id="outline_@team.Permissions.TeamId"></div>
+                                    <div class="slider" id="slider_@team.Permissions.TeamId"></div>
+                                </div>
+                            </div>
+                        </summary>
+                        <div class="users-list-container">
+                            <span>Members</span>
+                            <ul class="user-list">
+                                @foreach (var user in team.Users)
+                                {
+                                    <li class="user-item">
+                                        <strong>@user.Username</strong><br/>
+                                        <span class="user-meta">@user.Email</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </details>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="column2" hidden>
+        <div id="partial-container-permissions" class="fullHeight"></div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+
+        function getStyle(index) {
+            switch (index) {
+                case 0:
+                    return '2px';
+
+                case 1:
+                    return '25%';
+
+                case 2:
+                    return '50%';
+
+                case 3:
+                    return '75%';
+            }
+        }
+
+        function openPermissionsColumnAndMoveSlider(teamId,index) {
+            moveSlider(teamId,index);
+            openPermissionsEditColumn(teamId,index);
+        }
+        
+        
+        function moveSlider(id, index) {
+            const slider = document.getElementById('slider_' + id);
+            if (!slider) return;
+
+            slider.style.left = getStyle(index);
+        }
+
+        function setDefaultValueOutline(id, index) {
+
+            const outline = document.getElementById('outline_' + id);
+            if (!outline) return;
+
+            outline.style.left = getStyle(index);
+            outline.style.display = 'block';
+        }
+
+        function openPermissionsEditColumn(teamId,level) {
+            $('#partial-container-permissions').load(`/Administration/LoadEditPermissionsForm?teamId=${teamId}&level=${level}`, function (response, status, _) {
+
+                if (status === 'success') {
+                    const container = document.getElementById('partial-container-permissions');
+
+                    // Check if the container already has a shadow root
+                    let shadowRoot = container.shadowRoot;
+
+                    if (!shadowRoot) {
+                        // If no shadow root exists, create a new one
+                        shadowRoot = container.attachShadow({mode: 'open'});
+                    }
+
+                    // Load the content into the shadow root
+                    shadowRoot.innerHTML = response;
+                }
+
+                if (status === "error") {
+                    $('#partial-container-permissions').html('<p style="color:red;">Failed to load content.</p>');
+                }
+                resize();
+            });
+        }
+
+        let resize = function () {
+            const grid = document.querySelector('.two-column-row');
+            const col2 = grid.querySelector('.column2');
+            if (col2 && col2.textContent.trim() !== "") {
+                grid.style.gridTemplateColumns = "2fr 1fr";
+                col2.hidden = false;
+            } else {
+                grid.style.gridTemplateColumns = "1fr";
+            }
+        }
+
+        // On load, initialize sliders based on checked inputs
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.toggle-wrapper').forEach(wrapper => {
+                const id = wrapper.getAttribute('data-id');
+                const read = wrapper.querySelector(`#read_${id}`);
+                const limited = wrapper.querySelector(`#limited_${id}`);
+                const full = wrapper.querySelector(`#full_${id}`);
+                const custom = wrapper.querySelector(`#custom_${id}`);
+
+                if (read.checked) {
+                    moveSlider(id, 0);
+                    setDefaultValueOutline(id, 0);
+                } else if (limited.checked) {
+                    moveSlider(id, 1);
+                    setDefaultValueOutline(id, 1);
+                } else if (full.checked) {
+                    moveSlider(id, 2);
+                    setDefaultValueOutline(id, 2);
+                } else if (custom.checked) {
+                    moveSlider(id, 3);
+                    setDefaultValueOutline(id, 3);
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+

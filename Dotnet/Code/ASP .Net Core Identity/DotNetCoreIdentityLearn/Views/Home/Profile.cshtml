@@ -1,0 +1,40 @@
+@model UserViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "_ApplicationLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/profile.css"/>
+}
+
+<div class="profile">
+    <h1>@Model.Username Profile</h1>
+    <div class="info-group">
+        <span class="label">Username</span>
+        <span>@Model.Username</span>
+    </div>
+
+    <div class="info-group">
+        <span class="label">Email</span>
+        <span>@(Model.Email)</span>
+    </div>
+
+    <div class="info-group">
+        <span class="label">Birthday</span>
+        <span>@(Model.Birthday)</span>
+    </div>
+
+    <div class="info-group">
+        <span class="label">Roles</span>
+        <ul class="roles">
+            @foreach (var role in Model.Roles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    </div>
+</div>
+

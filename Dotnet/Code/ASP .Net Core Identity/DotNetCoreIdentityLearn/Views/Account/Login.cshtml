@@ -1,0 +1,47 @@
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "User Sign In";
+    Layout = "_ApplicationLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/forms.css"/>
+}
+
+
+<div class="form-container">
+    <div class="miku-chibi">
+        <img src="~/images/Hatsune_miku_logo.png" alt="Miku"/>
+    </div>
+    <h2 class="form-title">Sign In</h2>
+
+    <form method="post">
+        <input type="hidden" name="ReturnUrl" value="@ViewData["ReturnUrl"]" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3 form-group">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <div class="checkbox">
+                <label class="form-check-label" asp-for="RememberMe">
+                    <input class="form-check-input" asp-for="RememberMe"/>
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>
+        </div>
+        <div class="signin_btn_wrapper">
+            <button type="submit" class="btn btn-miku w-100">Sign In</button>
+        </div>
+        <div class="signup_message">
+            <p>Don&rsquo;t have an account ? <a href="/account/register"> Sign up </a> </p>
+        </div>
+    </form>
+</div>

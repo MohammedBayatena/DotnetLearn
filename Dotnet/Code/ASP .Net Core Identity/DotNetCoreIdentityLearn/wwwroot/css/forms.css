@@ -1,0 +1,78 @@
+body {
+    background-color: #212529;
+    font-family: 'Dosis', sans-serif;
+    color: 	#137a7f;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 80px auto;
+    background-color: whitesmoke;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(225, 40, 133, 0.2);
+    border: 2px solid #137a7f;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #137a7f;
+    font-weight: 700;
+}
+
+.form-control {
+    background-color: #f9f9f9;
+    border: 1px solid #86cecb;
+    color: #373b3e;
+}
+
+.form-control:focus {
+    border-color: #137a7f;
+    box-shadow: 0 0 0 0.25rem rgba(27, 141, 147, 0.79);
+}
+
+.btn-miku {
+    background-color: #137a7f;
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-miku:hover {
+    background-color: #e12885;
+    color: white;
+}
+
+.miku-chibi {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.miku-chibi img {
+    height: 80px;
+}
+
+.login_message p, .signup_message p {
+    text-align: center;
+    font-size: 16px;
+    margin: 0;
+}
+
+p {
+    color: #999999;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.signin_btn_wrapper, .signup_btn_wrapper {
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #d8d7d7;
+}
+
+.form-check-input:checked {
+    background-color: #e12885;
+    border-color: #86cecb;
+}

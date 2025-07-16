@@ -1,0 +1,37 @@
+@model CreateRoleViewModel
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/edit-column-form.css"/>
+}
+
+
+<div class="edit-form-container">
+    <form class="edit-form" method="post">
+        <h2>Edit Role</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="RoleName" class="form-label"></label>
+            <input asp-for="RoleName" class="form-control" placeholder="Enter role name"/>
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea rows="4" asp-for="Description" class="form-control are"
+                      placeholder="Enter role description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update and Save</button>
+            <button type="button" class="btn btn-secondary"
+                    onclick='window.location.href = "@Url.Action("RolesList", "Administration")"'>Cancel
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,44 @@
+
+@{
+  ViewBag.Title = "DashBoard";
+  Layout = "_DashboardLayout";
+}
+
+<div class="header">
+  <div>
+    <h1>Administration Dashboard</h1>
+  </div>
+  <form method="post" asp-controller="Account" asp-action="Logout">
+    <button class="btn btn-danger" type="submit">SignOut</button>
+  </form>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <h3>Total Users</h3>
+    <p>24</p>
+    <form>
+      <button asp-controller="Administration" asp-action="UsersList" type="submit" class="btn btn-dark">View</button>
+    </form>
+  </div>
+  <div class="card">
+
+    <h3>Active Users</h3>
+    <p>10</p>
+    <button class="btn btn-dark">View</button>
+  </div>
+  <div class="card">
+    <h3>All Tickets</h3>
+    <p>12</p>
+    <button class="btn btn-dark">View</button>
+  </div>
+  <div class="card">
+    <h3>Pending Tickets</h3>
+    <p>2</p>
+    <button class="btn btn-dark">View</button>
+  </div>
+  <div class="card">
+    <h3>Tickets Progress</h3>
+    <div class="progress-circle">41%</div>
+  </div>
+</div>

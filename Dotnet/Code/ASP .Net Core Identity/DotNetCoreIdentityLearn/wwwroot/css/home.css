@@ -1,0 +1,29 @@
+body {
+    background-color: #f0f8ff;
+    font-family: 'Segoe UI', sans-serif;
+}
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../images/mikuCover.png') center/cover no-repeat;
+    color: white;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.btn-miku {
+    background-color: #00bfff;
+    border: none;
+    color: white;
+}
+.btn-miku:hover {
+    background-color: #009acd;
+}
+footer {
+    background-color: #e0f7ff;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+}

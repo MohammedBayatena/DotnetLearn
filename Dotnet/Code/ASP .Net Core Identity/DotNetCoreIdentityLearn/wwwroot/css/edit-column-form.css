@@ -1,0 +1,120 @@
+.edit-form-container, .add-form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+}
+
+.edit-form h2 , .add-form h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.action-bar {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.toggle-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-slider-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    font-size: 1rem;
+}
+
+.form-slider-toggle input {
+    display: none;
+}
+
+.form-slider {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background-color: #d1d5db;
+    border-radius: 999px;
+    transition: background-color 0.3s;
+}
+
+.form-slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.form-slider-toggle input:checked + .form-slider {
+    background-color: #2563eb;
+}
+
+.form-slider-toggle input:checked + .form-slider::before {
+    transform: translateX(26px);
+}
+
+.action-bar {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}

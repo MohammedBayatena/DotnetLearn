@@ -1,0 +1,60 @@
+@model RegisterViewModel
+
+@{
+    ViewBag.Title = "User Registration";
+    Layout = "_ApplicationLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/forms.css"/>
+    <link rel="stylesheet" href="~/css/snow-effect.css"/>
+}
+
+@await Html.PartialAsync("~/Views/Shared/SnowEffect.cshtml")
+
+<div class="form-container">
+    <div class="miku-chibi">
+        <img src="~/images/Hatsune_miku_logo.png" alt="Miku"/>
+    </div>
+    <h2 class="form-title">Sign Up</h2>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3 form-group">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-control"/>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control"/>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="DateOfBirth" class="form-label"></label>
+            <input asp-for="DateOfBirth" class="form-control"/>
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-group">
+            <label asp-for="ConfirmPassword" class="form-label"></label>
+            <input asp-for="ConfirmPassword" class="form-control"/>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="signup_btn_wrapper">
+            <button type="submit" class="btn btn-miku w-100">Sign Up</button>
+        </div>
+        <div class="login_message">
+            <p>Already Have an Account ? <a href="/account/login"> Sign In </a></p>
+        </div>
+    </form>
+</div>

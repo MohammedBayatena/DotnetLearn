@@ -1,0 +1,68 @@
+@model IEnumerable<DotNetCoreIdentityLearn.DataBase.Entities.ApplicationUser>
+
+@{
+    ViewBag.Title = "Users Dashboard";
+    Layout = "_DashboardLayout";
+}
+
+<div class="header">
+    <div>
+        <h1>Administration Users Dashboard</h1>
+    </div>
+</div>
+
+<div class="two-column-row">
+
+    <div class="cards column1 fullHeight">
+
+        @if (Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <div class="card">
+                    <img src="~/images/user.png" alt="User Avatar"/>
+                    <h2>@user.FirstName @user.LastName</h2>
+                    <p class="title">@user.Email</p>
+                    <p class="title">@user.Id</p>
+                    <p class="bio">Member Since: 2025</p>
+                    <button class="btn btn-dark" onclick="openViewColumn('@user.Id')">View Profile</button>
+                    <button class="btn btn-danger">Deactivate Account</button>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="card">
+                <h3>No Users Added Yet</h3>
+            </div>
+        }
+    </div>
+    <div class="column2" hidden>
+        <div id="partial-container-users" class="fullHeight"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let openViewColumn = function (userId) {
+            $('#partial-container-users').load(`/Administration/LoadPartialUserInfo?userId=${userId}`, function (response, status, _) {
+                if (status === "success") {
+                } else if (status === "error") {
+                    $('#partial-container-users').html('<p style="color:red;">Failed to load content.</p>');
+                }
+                resize();
+            });
+        }
+
+        let resize = function () {
+            const grid = document.querySelector('.two-column-row');
+            const col2 = grid.querySelector('.column2');
+            if (col2 && col2.textContent.trim() !== "") {
+                grid.style.gridTemplateColumns = "2fr 1fr";
+                col2.hidden = false;
+            } else {
+                grid.style.gridTemplateColumns = "1fr";
+            }
+        }
+    </script>
+}
