@@ -23,3 +23,10 @@ This project is intended for **learning and experimentation** with ASP.NET Core 
 
 1. **Clone the repository**
 2. **Do Whatever**
+
+### TODOS
+
+1) Create Permissions DB
+2) Dynamically Update Dashboard
+3) Connect the unconnected Buttons and Views
+4) Permission Based Authorization and Authentication
